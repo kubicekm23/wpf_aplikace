@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Mime;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,14 +15,14 @@ namespace kalkulacka;
 
 public partial class MainWindow : Window
 {
-    private string vysledek;
+    private string vysledek = "";
     private bool JustCalculatedNumber = false;
 
     private List<double> cisla = new List<double>();
     private List<string> operace = new List<string>();
 
-    private double PiseSeCislo;
-    private string PiseSeCisloStr;
+    private double PiseSeCislo = 0;
+    private string PiseSeCisloStr = "";
     
     public MainWindow()
     {
@@ -117,5 +118,66 @@ public partial class MainWindow : Window
     private void ZmacknutaDesetinnaCarka(object sender, RoutedEventArgs e)
     {
         throw new NotImplementedException();
+    }
+
+    private void ClearEverything(object sender, RoutedEventArgs e)
+    {
+        vysledek = "";
+        JustCalculatedNumber = false;
+
+        cisla = new List<double>();
+        operace = new List<string>();
+
+        PiseSeCislo = 0;
+        PiseSeCisloStr = "";
+
+        TextVypoctu.Text = "";
+    }
+
+    private void RemoveLast(object sender, RoutedEventArgs e)
+    {
+        if (PiseSeCisloStr == "")
+        {
+            if (operace.Count > 0 && operace.Count == cisla.Count)
+            {
+                operace.RemoveAt(operace.Count - 1);
+            }
+        }
+        else
+        {
+            if (operace.Count > 0 && operace.Count == cisla.Count + 1)
+            {
+                operace.RemoveAt(operace.Count - 1);
+            }
+            else if (PiseSeCisloStr.Length > 0)
+            {
+                PiseSeCisloStr = PiseSeCisloStr.Remove(PiseSeCisloStr.Length - 1);
+
+                if (PiseSeCisloStr.Length == 0)
+                {
+                    PiseSeCislo = 0;
+                }
+                else
+                {
+                    PiseSeCislo = Convert.ToDouble(PiseSeCisloStr);
+                }
+            }
+        }
+        
+        if (operace.Count > 0)
+        {
+            StringBuilder displayText = new StringBuilder();
+            for (int i = 0; i < cisla.Count && i < operace.Count; i++)
+            {
+                displayText.Append(cisla[i]);
+                displayText.Append(operace[i]);
+            }
+            displayText.Append(PiseSeCisloStr);
+            TextVypoctu.Text = displayText.ToString();
+        }
+        else
+        {
+            TextVypoctu.Text = PiseSeCisloStr;
+        }
     }
 }

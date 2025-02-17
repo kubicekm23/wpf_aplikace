@@ -26,9 +26,9 @@
         <TextBlock Name="TextVypoctu" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0"></TextBlock>
         
         <Button Grid.Row="1" Grid.Column="0" Content="%"></Button>
-        <Button Grid.Row="1" Grid.Column="1" Content="CE"></Button>
-        <Button Grid.Row="1" Grid.Column="2" Content="C"></Button>
-        <Button Grid.Row="1" Grid.Column="3" Content="Umazat"></Button>
+        <Button Grid.Row="1" Grid.Column="1" Content="CE" Click="ClearEverything"></Button>
+        <Button Grid.Row="1" Grid.Column="2" Content="C" Click="ClearEverything"></Button>
+        <Button Grid.Row="1" Grid.Column="3" Content="Umazat" Click="RemoveLast"></Button>
 
         <Button Grid.Row="2" Grid.Column="0" Content="1/X" Click="ZmacknutoMinusPrvni"></Button>
         <Button Grid.Row="2" Grid.Column="1" Content="X^2" Click="ZmacknutoNaDruhou"></Button>
