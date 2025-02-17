@@ -27,6 +27,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        MaxWidth = 250; MaxHeight = 300;
+        MinWidth = 250; MinHeight = 300;
     }
     
     private void AppendNumber(int number)
