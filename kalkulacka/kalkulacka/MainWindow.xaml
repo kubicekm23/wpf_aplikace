@@ -27,12 +27,12 @@
         
         <Button Grid.Row="1" Grid.Column="0" Content="%" FontSize="25px"></Button>
         <Button Grid.Row="1" Grid.Column="1" Content="CE" FontSize="25px" Click="ClearEverything"></Button>
-        <Button Grid.Row="1" Grid.Column="2" Content="C" FontSize="25px" Click="ClearEverything"></Button>
+        <Button Grid.Row="1" Grid.Column="2" Content="C" FontSize="25px" Click="ClearNumber"></Button>
         <Button Grid.Row="1" Grid.Column="3" Content="Umazat" FontSize="25px" Click="RemoveLast"></Button>
 
         <Button Grid.Row="2" Grid.Column="0" Content="1/X" FontSize="25px" Click="ZmacknutoMinusPrvni"></Button>
         <Button Grid.Row="2" Grid.Column="1" Content="X^2" FontSize="25px" Click="ZmacknutoNaDruhou"></Button>
-        <Button Grid.Row="2" Grid.Column="2" Content="2√X" FontSize="25px"></Button>
+        <Button Grid.Row="2" Grid.Column="2" Content="2√X" FontSize="25px" Click="ZmacknutoDruhaOdmocnina"></Button>
         <Button Grid.Row="2" Grid.Column="3" Content="/" FontSize="25px" Click="ZmacknutoLomitko"></Button>
         
         <Button Grid.Row="3" Grid.Column="0" Content="7" FontSize="25px" Click="ZmacknutoSedm"></Button>
@@ -50,7 +50,7 @@
         <Button Grid.Row="5" Grid.Column="2" Content="3" FontSize="25px" Click="ZmacknutoTri"></Button>
         <Button Grid.Row="5" Grid.Column="3" Content="+" FontSize="25px" Click="ZmacknutoPlus"></Button>
         
-        <Button Grid.Row="6" Grid.Column="0" Content="+/-" FontSize="25px"></Button>
+        <Button Grid.Row="6" Grid.Column="0" Content="+/-" FontSize="25px" Click="ZmacknutoReversePlusMinus"></Button>
         <Button Grid.Row="6" Grid.Column="1" Content="0" FontSize="25px" Click="ZmacknutoNula"></Button>
         <Button Grid.Row="6" Grid.Column="2" Content="," FontSize="25px" Click="ZmacknutaDesetinnaCarka"></Button>
         <Button Grid.Row="6" Grid.Column="3" Content="=" FontSize="25px" Click="Calculate"></Button>

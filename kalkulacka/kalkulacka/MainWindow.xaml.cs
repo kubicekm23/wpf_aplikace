@@ -83,6 +83,9 @@ public partial class MainWindow : Window
             case "^2":
                 calculatedNumber += Math.Pow(cislo1, 2);
                 break;
+            case "2\u221aX":
+                calculatedNumber += Math.Sqrt(cislo1);
+                break;
         }
         
         vysledek = calculatedNumber.ToString();
@@ -108,6 +111,8 @@ public partial class MainWindow : Window
     private void ZmacknutoPlus(object sender, RoutedEventArgs e) { AppendOperator("+"); }
     private void ZmacknutoMinusPrvni(object sender, RoutedEventArgs e) { AppendOperator("x^-1"); Calculate(sender, e); }
     private void ZmacknutoNaDruhou(object sender, RoutedEventArgs e) { AppendOperator("^2"); Calculate(sender, e); }
+    private void ZmacknutoDruhaOdmocnina(object sender, RoutedEventArgs e) { AppendOperator("2\u221aX"); Calculate(sender, e); }
+    private void ZmacknutoReversePlusMinus(object sender, RoutedEventArgs e) { ReversePolarity(); }
 
     private void ZmacknutaDesetinnaCarka(object sender, RoutedEventArgs e)
     {
@@ -127,27 +132,55 @@ public partial class MainWindow : Window
         TextVypoctu.Text = "";
     }
 
-    private void RemoveLast(object sender, RoutedEventArgs e)
+    private void ClearNumber(object sender, RoutedEventArgs e)
     {
-        if (cislo2 != 0)
-        {
-            var prevodString = Convert.ToString(cislo2);
-            prevodString = prevodString.Remove(prevodString.Length - 1, 1);
-            cislo2 = Convert.ToDouble(prevodString);
+        if (operace != "") 
+        { 
+            cislo2 = 0; 
+            PiseSeCislo = 0; 
+            PiseSeCisloStr = "0"; 
+            TextVypoctu.Text = "0"; 
         }
         else
         {
-            if (operace != "")
-            {
-                operace = "";
-            }
-
-            else if (cislo1 != 0)
-            {
-                var prevodString = Convert.ToString(cislo1);
-                prevodString = prevodString.Remove(prevodString.Length - 1, 1);
-                cislo2 = Convert.ToDouble(prevodString);
-            }
+            cislo1 = 0;
+            PiseSeCislo = 0;
+            PiseSeCisloStr = "0";
+            TextVypoctu.Text = "0";
         }
     }
+
+    private void RemoveLast(object sender, RoutedEventArgs e)
+    {
+        if (PiseSeCisloStr.Length > 1) // If there's more than one character
+        {
+            PiseSeCisloStr = PiseSeCisloStr.Remove(PiseSeCisloStr.Length - 1);
+            PiseSeCislo = Convert.ToDouble(PiseSeCisloStr);
+        }
+        else // If there's only one character
+        {
+            PiseSeCisloStr = "0";
+            PiseSeCislo = 0;
+        }
+
+        TextVypoctu.Text = PiseSeCisloStr;
+    }
+
+    private void ReversePolarity()
+    {
+        if (cislo2 != 0)
+        {
+            cislo2 *= -1;
+        }
+        else if (cislo1 != 0)
+        {
+            cislo1 *= -1;
+        }
+        
+        PiseSeCislo *= -1;
+        PiseSeCisloStr = Convert.ToString(PiseSeCislo);
+        
+        TextVypoctu.Text = PiseSeCisloStr;
+    }
 }
+        
