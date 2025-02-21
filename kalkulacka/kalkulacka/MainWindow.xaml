@@ -25,7 +25,7 @@
         
         <TextBlock Name="TextVypoctu" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" FontSize="25px"></TextBlock>
         
-        <Button Grid.Row="1" Grid.Column="0" Content="%" FontSize="25px"></Button>
+        <Button Grid.Row="1" Grid.Column="0" Content="%" FontSize="25px" Click="ZmacknutoProcento"></Button>
         <Button Grid.Row="1" Grid.Column="1" Content="CE" FontSize="25px" Click="ClearEverything"></Button>
         <Button Grid.Row="1" Grid.Column="2" Content="C" FontSize="25px" Click="ClearNumber"></Button>
         <Button Grid.Row="1" Grid.Column="3" Content="Umazat" FontSize="25px" Click="RemoveLast"></Button>

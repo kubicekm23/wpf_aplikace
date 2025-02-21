@@ -24,6 +24,8 @@ public partial class MainWindow : Window
     private int KdeCarka1 = -1;
     private int KdeCarka2 = -1;
     
+    private bool DruheCisloProcento = false;
+    
     private double PiseSeCislo = 0;
     private string PiseSeCisloStr = "0";
     
@@ -82,8 +84,11 @@ public partial class MainWindow : Window
             cislo2str = cislo2str.Insert(KdeCarka2, ",");
             cislo2 = Convert.ToDouble(cislo2str);
         }
-        
-        Console.WriteLine(cislo1);
+
+        if (DruheCisloProcento)
+        {
+            cislo2 = cislo1 / 100 * cislo2;
+        }
         
         switch (operace)
         {
@@ -213,6 +218,12 @@ public partial class MainWindow : Window
         PiseSeCisloStr = Convert.ToString(PiseSeCislo);
         
         TextVypoctu.Text = PiseSeCisloStr;
+    }
+
+    private void ZmacknutoProcento(object sender, RoutedEventArgs e)
+    {
+        DruheCisloProcento = true;
+        Calculate(sender, e);
     }
 }
         
