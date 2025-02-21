@@ -18,11 +18,12 @@ public partial class MainWindow : Window
     private string vysledek = "";
     private bool JustCalculatedNumber = false;
 
-    private List<double> cisla = new List<double>();
-    private List<string> operace = new List<string>();
+    private double cislo1;
+    private double cislo2;
+    private string operace = "";
 
     private double PiseSeCislo = 0;
-    private string PiseSeCisloStr = "";
+    private string PiseSeCisloStr = "0";
     
     public MainWindow()
     {
@@ -44,54 +45,34 @@ public partial class MainWindow : Window
 
     private void AppendOperator(string operatorString)
     {
-        operace.Add(operatorString);
-        cisla.Add(PiseSeCislo);
+        operace = operatorString;
+        cislo1 = PiseSeCislo;
         PiseSeCislo = 0;
         
-        PiseSeCisloStr += operatorString;
-        TextVypoctu.Text = PiseSeCisloStr;
+        TextVypoctu.Text = "0";
     }
 
     private void Calculate(object sender, RoutedEventArgs e)
     {
         double calculatedNumber = 0;
         
-        cisla.Add(PiseSeCislo);
+        cislo2 = PiseSeCislo;
         PiseSeCislo = 0;
 
-        switch (operace[0])
+        switch (operace)
         {
             case "+":
-                calculatedNumber += cisla[0] + cisla[1];
+                calculatedNumber += cislo1 + cislo2;
                 break;
             case "-":
-                calculatedNumber += cisla[0] - cisla[1];
+                calculatedNumber += cislo1 - cislo2;
                 break;
             case "*":
-                calculatedNumber += cisla[0] * cisla[1];
+                calculatedNumber += cislo1 * cislo2;
                 break;
             case "/":
-                calculatedNumber += cisla[0] / cisla[1];
+                calculatedNumber += cislo1 / cislo2;
                 break;
-        }
-        
-        for (int i = 1; i < operace.Count; i++)
-        {
-            switch (operace[i])
-            {
-                case "+":
-                    calculatedNumber += cisla[i+1];
-                    break;
-                case "-":
-                    calculatedNumber -= cisla[i+1];
-                    break;
-                case "*":
-                    calculatedNumber *= cisla[i+1];
-                    break;
-                case "/":
-                    calculatedNumber /= cisla[i+1];
-                    break;
-            }
         }
         
         vysledek = calculatedNumber.ToString();
@@ -127,8 +108,8 @@ public partial class MainWindow : Window
         vysledek = "";
         JustCalculatedNumber = false;
 
-        cisla = new List<double>();
-        operace = new List<string>();
+        cislo1 = 0; cislo2 = 0;
+        operace = "";
 
         PiseSeCislo = 0;
         PiseSeCisloStr = "";
@@ -138,48 +119,25 @@ public partial class MainWindow : Window
 
     private void RemoveLast(object sender, RoutedEventArgs e)
     {
-        if (PiseSeCisloStr == "")
+        if (cislo2 != 0)
         {
-            if (operace.Count > 0 && operace.Count == cisla.Count)
-            {
-                operace.RemoveAt(operace.Count - 1);
-            }
+            var prevodString = Convert.ToString(cislo2);
+            prevodString = prevodString.Remove(prevodString.Length - 1, 1);
+            cislo2 = Convert.ToDouble(prevodString);
         }
         else
         {
-            if (operace.Count > 0 && operace.Count == cisla.Count + 1)
+            if (operace != "")
             {
-                operace.RemoveAt(operace.Count - 1);
+                operace = "";
             }
-            else if (PiseSeCisloStr.Length > 0)
-            {
-                PiseSeCisloStr = PiseSeCisloStr.Remove(PiseSeCisloStr.Length - 1);
 
-                if (PiseSeCisloStr.Length == 0)
-                {
-                    PiseSeCislo = 0;
-                }
-                else
-                {
-                    PiseSeCislo = Convert.ToDouble(PiseSeCisloStr);
-                }
-            }
-        }
-        
-        if (operace.Count > 0)
-        {
-            StringBuilder displayText = new StringBuilder();
-            for (int i = 0; i < cisla.Count && i < operace.Count; i++)
+            else if (cislo1 != 0)
             {
-                displayText.Append(cisla[i]);
-                displayText.Append(operace[i]);
+                var prevodString = Convert.ToString(cislo1);
+                prevodString = prevodString.Remove(prevodString.Length - 1, 1);
+                cislo2 = Convert.ToDouble(prevodString);
             }
-            displayText.Append(PiseSeCisloStr);
-            TextVypoctu.Text = displayText.ToString();
-        }
-        else
-        {
-            TextVypoctu.Text = PiseSeCisloStr;
         }
     }
 }
