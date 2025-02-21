@@ -16,7 +16,6 @@ namespace kalkulacka;
 public partial class MainWindow : Window
 {
     private string vysledek = "";
-    private bool JustCalculatedNumber = false;
 
     private double cislo1;
     private double cislo2;
@@ -62,7 +61,7 @@ public partial class MainWindow : Window
         double calculatedNumber = 0;
         
         cislo2 = PiseSeCislo;
-        PiseSeCislo = 0;
+        //PiseSeCislo = 0;
 
         switch (operace)
         {
@@ -78,11 +77,18 @@ public partial class MainWindow : Window
             case "/":
                 calculatedNumber += cislo1 / cislo2;
                 break;
+            case "x^-1":
+                calculatedNumber += Math.Pow(cislo1, -1);
+                break;
+            case "^2":
+                calculatedNumber += Math.Pow(cislo1, 2);
+                break;
         }
         
         vysledek = calculatedNumber.ToString();
+        cislo1 = calculatedNumber; cislo2 = 0;
+        PiseSeCislo = cislo1;
         TextVypoctu.Text = vysledek;
-        JustCalculatedNumber = true;
     }
 
     private void ZmacknutoJedna(object sender, RoutedEventArgs e) { AppendNumber(1); }
@@ -100,8 +106,8 @@ public partial class MainWindow : Window
     private void ZmacknutoKrat(object sender, RoutedEventArgs e) { AppendOperator("*"); }
     private void ZmacknutoMinus(object sender, RoutedEventArgs e) { AppendOperator("-"); }
     private void ZmacknutoPlus(object sender, RoutedEventArgs e) { AppendOperator("+"); }
-    private void ZmacknutoMinusPrvni(object sender, RoutedEventArgs e) { AppendOperator("x^1"); }
-    private void ZmacknutoNaDruhou(object sender, RoutedEventArgs e) { AppendOperator("^2"); }
+    private void ZmacknutoMinusPrvni(object sender, RoutedEventArgs e) { AppendOperator("x^-1"); Calculate(sender, e); }
+    private void ZmacknutoNaDruhou(object sender, RoutedEventArgs e) { AppendOperator("^2"); Calculate(sender, e); }
 
     private void ZmacknutaDesetinnaCarka(object sender, RoutedEventArgs e)
     {
@@ -111,7 +117,6 @@ public partial class MainWindow : Window
     private void ClearEverything(object sender, RoutedEventArgs e)
     {
         vysledek = "";
-        JustCalculatedNumber = false;
 
         cislo1 = 0; cislo2 = 0;
         operace = "";
