@@ -35,10 +35,14 @@ public partial class MainWindow : Window
     private void AppendNumber(int number)
     {
         string cislo = PiseSeCislo.ToString();
-        cislo += number;
+        cislo += number; 
         
-        PiseSeCisloStr += number;
-        PiseSeCislo = Convert.ToDouble(cislo);
+        if (PiseSeCisloStr == "0") { PiseSeCisloStr = $"{number}"; PiseSeCislo = number; }
+        else
+        {
+            PiseSeCisloStr += number;
+            PiseSeCislo = Convert.ToDouble(cislo);
+        }
         
         TextVypoctu.Text = PiseSeCisloStr;
     }
@@ -49,6 +53,7 @@ public partial class MainWindow : Window
         cislo1 = PiseSeCislo;
         PiseSeCislo = 0;
         
+        PiseSeCisloStr = "0";
         TextVypoctu.Text = "0";
     }
 
