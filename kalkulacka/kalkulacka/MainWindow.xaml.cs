@@ -21,6 +21,9 @@ public partial class MainWindow : Window
     private double cislo2;
     private string operace = "";
 
+    private int KdeCarka1 = -1;
+    private int KdeCarka2 = -1;
+    
     private double PiseSeCislo = 0;
     private string PiseSeCisloStr = "0";
     
@@ -34,15 +37,19 @@ public partial class MainWindow : Window
     private void AppendNumber(int number)
     {
         string cislo = PiseSeCislo.ToString();
-        cislo += number; 
-        
-        if (PiseSeCisloStr == "0") { PiseSeCisloStr = $"{number}"; PiseSeCislo = number; }
+        cislo += number;
+
+        if (PiseSeCisloStr == "0")
+        {
+            PiseSeCisloStr = $"{number}";
+            PiseSeCislo = number;
+        }
         else
         {
             PiseSeCisloStr += number;
             PiseSeCislo = Convert.ToDouble(cislo);
         }
-        
+
         TextVypoctu.Text = PiseSeCisloStr;
     }
 
@@ -61,8 +68,23 @@ public partial class MainWindow : Window
         double calculatedNumber = 0;
         
         cislo2 = PiseSeCislo;
-        //PiseSeCislo = 0;
 
+        if (KdeCarka1 != -1)
+        {
+            var cislo1str = Convert.ToString(cislo1);
+            cislo1str = cislo1str.Insert(KdeCarka1, ",");
+            cislo1 = Convert.ToDouble(cislo1str);
+        }
+
+        if (KdeCarka2 != -1)
+        {
+            var cislo2str = Convert.ToString(cislo2);
+            cislo2str = cislo2str.Insert(KdeCarka2, ",");
+            cislo2 = Convert.ToDouble(cislo2str);
+        }
+        
+        Console.WriteLine(cislo1);
+        
         switch (operace)
         {
             case "+":
@@ -116,7 +138,17 @@ public partial class MainWindow : Window
 
     private void ZmacknutaDesetinnaCarka(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        PiseSeCisloStr += ",";
+
+        if (operace != "")
+        {
+            KdeCarka2 = PiseSeCisloStr.Length - 2;
+        }
+        else
+        {
+            KdeCarka1 = PiseSeCisloStr.Length - 2;
+        }
+        
     }
 
     private void ClearEverything(object sender, RoutedEventArgs e)
